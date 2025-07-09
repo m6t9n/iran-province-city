@@ -1,0 +1,22 @@
+{
+  "name": "vendor/iran-province-city",
+  "description": "Laravel package for Iran's provinces and cities",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Vendor\\IranProvinceCity\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Vendor\\IranProvinceCity\\Providers\\IranProvinceCityServiceProvider"
+      ]
+    }
+  },
+  "require": {
+    "php": "^8.0",
+    "illuminate/support": "^10.0|^11.0|^12.0"
+  }
+}
