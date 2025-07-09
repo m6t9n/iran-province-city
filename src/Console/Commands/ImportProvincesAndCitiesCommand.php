@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 
-class ImportProvincesAndCitiesAllCommand extends Command
+class ImportProvincesAndCitiesCommand extends Command
 {
     protected $signature = 'iran-province-city:all';
 
