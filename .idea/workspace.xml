@@ -10,7 +10,8 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings">
+  <component name="ComposerSettings" notifyAboutMissingVendor="false" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
   <component name="Git.Settings">
@@ -25,9 +26,9 @@
     <option name="defaultAccountId" value="be8b8d15-3132-408d-b70e-32d8b068f32e" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/bin/php8.3" />
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2zdZEJ0IoJc7YUGcqzqKKzhhCRX" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -48,7 +49,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.updates",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -73,6 +74,7 @@
       <option name="presentableId" value="Default" />
       <updated>1752062798097</updated>
       <workItem from="1752062799433" duration="6546000" />
+      <workItem from="1752069690086" duration="189000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <option name="closed" value="true" />
