@@ -17,7 +17,7 @@ class ImportProvincesAndCitiesCommand extends Command
         $this->info('در حال انتشار فایل‌های مایگریشن...');
         try {
             $this->callSilent('vendor:publish', [
-                '--provider' => 'Vendor\IranProvinceCity\Providers\YourPackageServiceProvider',
+                '--provider' => 'Vendor\IranProvinceCity\Providers\IranProvinceCityServiceProvider',
                 '--tag' => 'iran-province-city-migrations',
                 '--force' => true,
             ]);
