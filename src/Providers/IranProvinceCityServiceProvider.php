@@ -16,19 +16,22 @@ class IranProvinceCityServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        $migrationPath = __DIR__ . '/../../src/Database/migrations';
+        $seederPath = __DIR__ . '/../../src/Database/Seeders';
+        $modelPath = __DIR__ . '/../../src/Models';
+
         $this->publishes([
-            __DIR__ . '/../../src/Database/migrations/' => database_path('migrations'),
+            $migrationPath => database_path('migrations'),
         ], 'iran-province-city-migrations');
 
         $this->publishes([
-            __DIR__ . '/../../src/Database/Seeders/' => database_path('seeders'),
+            $seederPath => database_path('seeders'),
         ], 'iran-province-city-seeders');
 
         $this->publishes([
-            __DIR__ . '/../../src/Models/' => app_path('Models/IranProvinceCity'),
+            $modelPath => app_path('Models/IranProvinceCity'),
         ], 'iran-province-city-models');
 
-        $this->loadMigrationsFrom(__DIR__ . '/../../src/Database/migrations');
+        $this->loadMigrationsFrom($migrationPath);
     }
-
 }
