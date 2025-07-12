@@ -28,14 +28,12 @@ class IranProvinceCityServiceProvider extends ServiceProvider
 
     protected function publishMigrations(string $migrationPath): void
     {
-        $timestamp = now()->format('Y_m_d_His');
-
         $this->publishes([
-            "{$migrationPath}/create_provinces_table.php" => database_path("migrations/{$timestamp}_create_provinces_table.php"),
+            "{$migrationPath}/0000_00_00_000001_create_provinces_table.php" => database_path("migrations/0000_00_00_000001_create_provinces_table.php"),
         ], 'iran-province-city-migrations-province');
 
         $this->publishes([
-            "{$migrationPath}/create_cities_table.php" => database_path("migrations/" . now()->addSecond()->format('Y_m_d_His') . "_create_cities_table.php"),
+            "{$migrationPath}/0000_00_00_000002_create_cities_table.php" => database_path("migrations/0000_00_00_000002_create_cities_table.php"),
         ], 'iran-province-city-migrations-city');
     }
 

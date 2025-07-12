@@ -9,23 +9,10 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     ایجاد جداول شهر و استان به ترتیب وابستگی *
+     ایجاد جدول شهر *
      */
     public function up(): void
     {
-        Schema::create(Province::TABLE, function (Blueprint $table) {
-            $table->id();
-
-            $table->unsignedBigInteger(Province::CODE)
-                ->unique()
-                ->comment('کد استان');
-
-            $table->string(Province::NAME)
-                ->comment('نام استان');
-
-            $table->timestamps();
-        });
-
         Schema::create(City::TABLE, function (Blueprint $table) {
             $table->id();
 
@@ -59,7 +46,7 @@ return new class extends Migration
     }
 
     /**
-     حذف جداول شهر و استان به ترتیب وابستگی *
+     حذف جدول شهر *
      */
     public function down(): void
     {
@@ -68,6 +55,5 @@ return new class extends Migration
         });
 
         Schema::dropIfExists(City::TABLE);
-        Schema::dropIfExists(Province::TABLE);
     }
 };

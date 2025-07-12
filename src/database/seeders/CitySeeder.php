@@ -17,25 +17,13 @@ class ProvinceCitySeeder extends Seeder
     }
 
     /**
-     * ایجاد یا به‌روزرسانی شهرها و استان‌ها
+     * ایجاد یا به‌روزرسانی شهرها
      *
      * @return void
      */
     public function run(): void
     {
-        $provinces = require $this->dataPath . '/provinces.php';
         $cities = require $this->dataPath . '/cities.php';
-
-        foreach ($provinces as $province) {
-            try {
-                Province::query()->updateOrCreate(
-                    [Province::CODE => $province['code']],
-                    [Province::NAME => $province['name']]
-                );
-            } catch (Exception $e) {
-                $this->command->error("خطا در ایجاد یا به‌روزرسانی استان «{$province['name']}»: " . $e->getMessage());
-            }
-        }
 
         foreach ($cities as $city) {
             try {
@@ -53,6 +41,6 @@ class ProvinceCitySeeder extends Seeder
             }
         }
 
-        $this->command->info('✅ ایجاد یا به‌روزرسانی استان‌ها و شهرها با موفقیت به پایان رسید.');
+        $this->command->info('✅ ایجاد یا به‌روزرسانی شهرها با موفقیت به پایان رسید.');
     }
 }
