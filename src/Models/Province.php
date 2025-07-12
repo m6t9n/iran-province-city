@@ -22,7 +22,7 @@ class Province extends Model
     public const NAME = 'name';
 
     /** @var string */
-    protected string $table = self::TABLE;
+    protected $table = self::TABLE;
 
     /** @var array<string> */
     protected array $fillable = [

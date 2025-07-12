@@ -27,7 +27,7 @@ class City extends Model
     public const LONGITUDE = 'longitude';
 
     /** @var string */
-    protected string $table = self::TABLE;
+    protected $table = self::TABLE;
 
     /** @var array<string> */
     protected array $fillable = [

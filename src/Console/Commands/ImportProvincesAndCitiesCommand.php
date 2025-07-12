@@ -8,9 +8,9 @@ use Throwable;
 
 class ImportProvincesAndCitiesCommand extends Command
 {
-    protected string $signature = 'iran-province-city:interactive';
+    protected $signature = 'iran-province-city:interactive';
 
-    protected string $description = 'انتشار و اجرای مایگریشن و سیدر استان و شهر به صورت تعاملی';
+    protected $description = 'انتشار و اجرای مایگریشن و سیدر استان و شهر به صورت تعاملی';
 
     public function handle()
     {
