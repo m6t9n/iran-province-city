@@ -7,31 +7,53 @@ use Vendor\IranProvinceCity\Console\Commands\ImportProvincesAndCitiesCommand;
 
 class IranProvinceCityServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $this->commands([
             ImportProvincesAndCitiesCommand::class,
         ]);
     }
 
-    public function boot()
+    public function boot(): void
     {
-        $migrationPath = __DIR__ . '/../../src/Database/migrations';
-        $seederPath = __DIR__ . '/../../src/Database/Seeders';
-        $modelPath = __DIR__ . '/../../src/Models';
+        $basePath = dirname(__DIR__, 2) . '/src/Database';
+        $modelPath = dirname(__DIR__, 2) . '/src/Models';
+
+        $this->publishMigrations("{$basePath}/migrations");
+        $this->publishSeeders("{$basePath}/Seeders");
+        $this->publishModels($modelPath);
+
+        $this->loadMigrationsFrom("{$basePath}/migrations");
+    }
+
+    protected function publishMigrations(string $migrationPath): void
+    {
+        $timestamp = now()->format('Y_m_d_His');
 
         $this->publishes([
-            $migrationPath => database_path('migrations'),
-        ], 'iran-province-city-migrations');
+            "{$migrationPath}/create_provinces_table.php" => database_path("migrations/{$timestamp}_create_provinces_table.php"),
+        ], 'iran-province-city-migrations-province');
 
         $this->publishes([
-            $seederPath => database_path('seeders'),
-        ], 'iran-province-city-seeders');
+            "{$migrationPath}/create_cities_table.php" => database_path("migrations/" . now()->addSecond()->format('Y_m_d_His') . "_create_cities_table.php"),
+        ], 'iran-province-city-migrations-city');
+    }
 
+    protected function publishSeeders(string $seederPath): void
+    {
+        $this->publishes([
+            "{$seederPath}/ProvinceSeeder.php" => database_path('seeders/ProvinceSeeder.php'),
+        ], 'iran-province-city-seeders-province');
+
+        $this->publishes([
+            "{$seederPath}/CitySeeder.php" => database_path('seeders/CitySeeder.php'),
+        ], 'iran-province-city-seeders-city');
+    }
+
+    protected function publishModels(string $modelPath): void
+    {
         $this->publishes([
             $modelPath => app_path('Models/IranProvinceCity'),
         ], 'iran-province-city-models');
-
-        $this->loadMigrationsFrom($migrationPath);
     }
 }

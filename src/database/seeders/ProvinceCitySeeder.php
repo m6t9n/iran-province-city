@@ -2,22 +2,29 @@
 
 namespace Vendor\IranProvinceCity\Database\Seeders;
 
+use App\Models\IranProvinceCity\City;
+use App\Models\IranProvinceCity\Province;
 use Illuminate\Database\Seeder;
-use Vendor\IranProvinceCity\Models\City;
-use Vendor\IranProvinceCity\Models\Province;
 use Exception;
 
 class ProvinceCitySeeder extends Seeder
 {
+    protected string $dataPath;
+
+    public function __construct()
+    {
+        $this->dataPath = dirname(__DIR__, 2) . '/data';
+    }
+
     /**
-     ایجاد شهر ها و استان ها *
+     * ایجاد یا به‌روزرسانی شهرها و استان‌ها
      *
      * @return void
      */
     public function run(): void
     {
-        $provinces = require __DIR__ . '/../../data/provinces.php';
-        $cities = require __DIR__ . '/../../data/cities.php';
+        $provinces = require $this->dataPath . '/provinces.php';
+        $cities = require $this->dataPath . '/cities.php';
 
         foreach ($provinces as $province) {
             try {
@@ -37,14 +44,15 @@ class ProvinceCitySeeder extends Seeder
                     [
                         City::NAME => $city['name'],
                         City::PROVINCE_CODE => $city['province_code'],
-                        City::LATITUDE => $city['latitude'],
-                        City::LONGITUDE => $city['longitude'],
+                        City::LATITUDE => $city['latitude'] ?? null,
+                        City::LONGITUDE => $city['longitude'] ?? null,
                     ]
                 );
             } catch (Exception $e) {
                 $this->command->error("خطا در ایجاد یا به‌روزرسانی شهر «{$city['name']}»: " . $e->getMessage());
             }
         }
-        $this->command->info('ایجاد یا به‌روزرسانی استان‌ها و شهرها با موفقیت به پایان رسید.');
+
+        $this->command->info('✅ ایجاد یا به‌روزرسانی استان‌ها و شهرها با موفقیت به پایان رسید.');
     }
 }

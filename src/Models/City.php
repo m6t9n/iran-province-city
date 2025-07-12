@@ -4,7 +4,6 @@ namespace App\Models\IranProvinceCity;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Models\IranProvinceCity\Province;
 
 /**
  * Class City
@@ -16,7 +15,7 @@ use App\Models\IranProvinceCity\Province;
  * @property float|null $latitude
  * @property float|null $longitude
  *
- * @property-read Province $province
+ * @property-read Province $province استان مربوطه
  */
 class City extends Model
 {
@@ -27,9 +26,11 @@ class City extends Model
     public const LATITUDE = 'latitude';
     public const LONGITUDE = 'longitude';
 
-    protected $table = self::TABLE;
+    /** @var string */
+    protected string $table = self::TABLE;
 
-    protected $fillable = [
+    /** @var array<string> */
+    protected array $fillable = [
         self::CODE,
         self::NAME,
         self::PROVINCE_CODE,
@@ -37,8 +38,26 @@ class City extends Model
         self::LONGITUDE,
     ];
 
+    /** @var array<string, string> */
+    protected array $casts = [
+        self::CODE => 'string',
+        self::NAME => 'string',
+        self::PROVINCE_CODE => 'string',
+        self::LATITUDE => 'float',
+        self::LONGITUDE => 'float',
+    ];
+
+    /**
+     * استان مربوط به این شهر
+     *
+     * @return BelongsTo<Province, City>
+     */
     public function province(): BelongsTo
     {
-        return $this->belongsTo(Province::class, self::PROVINCE_CODE, Province::CODE);
+        return $this->belongsTo(
+            related: Province::class,
+            foreignKey: self::PROVINCE_CODE,
+            ownerKey: Province::CODE
+        );
     }
 }
