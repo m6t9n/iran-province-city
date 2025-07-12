@@ -2,8 +2,7 @@
 
 namespace Vendor\IranProvinceCity\Database\Seeders;
 
-use Vendor\IranProvinceCity\app\Models\City;
-use Vendor\IranProvinceCity\app\Models\Province;
+use Vendor\IranProvinceCity\Models\City;
 use Illuminate\Database\Seeder;
 use Exception;
 
@@ -16,11 +15,6 @@ class CitySeeder extends Seeder
         $this->dataPath = dirname(__DIR__, 2) . '/Data';
     }
 
-    /**
-     * ایجاد یا به‌روزرسانی شهرها
-     *
-     * @return void
-     */
     public function run(): void
     {
         $cities = require $this->dataPath . '/Cities.php';

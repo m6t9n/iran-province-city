@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\IranProvinceCity;
+namespace Models\IranProvinceCity;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Vendor\IranProvinceCity\app\Models\City;
+use Vendor\IranProvinceCity\Models\City;
 
 /**
  * Class Province
@@ -26,13 +26,13 @@ class Province extends Model
     protected $table = self::TABLE;
 
     /** @var array<string> */
-    protected array $fillable = [
+    protected $fillable = [
         self::CODE,
         self::NAME,
     ];
 
     /** @var array<string, string> */
-    protected array $casts = [
+    protected $casts = [
         self::CODE => 'integer',
         self::NAME => 'string',
     ];

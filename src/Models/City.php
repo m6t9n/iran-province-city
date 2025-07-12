@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models\IranProvinceCity;
+namespace Models\IranProvinceCity;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Vendor\IranProvinceCity\app\Models\Province;
+use Vendor\IranProvinceCity\Models\Province;
 
 /**
  * Class City
@@ -31,7 +31,7 @@ class City extends Model
     protected $table = self::TABLE;
 
     /** @var array<string> */
-    protected array $fillable = [
+    protected $fillable = [
         self::CODE,
         self::NAME,
         self::PROVINCE_CODE,
@@ -40,7 +40,7 @@ class City extends Model
     ];
 
     /** @var array<string, string> */
-    protected array $casts = [
+    protected $casts = [
         self::CODE => 'string',
         self::NAME => 'string',
         self::PROVINCE_CODE => 'string',

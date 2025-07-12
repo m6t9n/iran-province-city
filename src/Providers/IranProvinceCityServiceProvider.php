@@ -22,7 +22,6 @@ class IranProvinceCityServiceProvider extends ServiceProvider
         $this->publishMigrations("{$basePath}/migrations");
         $this->publishSeeders("{$basePath}/seeders");
         $this->publishModels($modelPath);
-
         $this->loadMigrationsFrom("{$basePath}/migrations");
     }
 

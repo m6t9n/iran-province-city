@@ -97,11 +97,17 @@ class ImportProvincesAndCitiesCommand extends Command
 
     protected function runSeeder(string $seederClass): void
     {
-        Artisan::call('db:seed', [
+        $exitCode = Artisan::call('db:seed', [
             '--class' => $seederClass,
             '--force' => true,
         ]);
-        $this->line(Artisan::output());
+
+        $output = Artisan::output();
+        if ($exitCode !== 0) {
+            $this->error("خطا در اجرای سیدر $seederClass:\n$output");
+        } else {
+            $this->line($output);
+        }
     }
 
     protected function section(string $title): void
