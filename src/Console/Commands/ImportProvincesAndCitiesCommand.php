@@ -50,17 +50,16 @@ class ImportProvincesAndCitiesCommand extends Command
 
         $allSuccess = true;
 
-        // Migration + model tag mapping
         $map = [
             'province' => [
                 'tag' => 'iran-province-city-migrations-province',
                 'modelPath' => dirname(__DIR__, 3) . '/Models/Province/Province.php',
-                'target' => app_path('Models/IranProvinceCity/Province.php'),
+                'target' => app_path('Models/Province.php'),
             ],
             'city' => [
                 'tag' => 'iran-province-city-migrations-city',
                 'modelPath' => dirname(__DIR__, 3) . '/Models/City/City.php',
-                'target' => app_path('Models/IranProvinceCity/City.php'),
+                'target' => app_path('Models/City.php'),
             ],
         ];
 
@@ -72,19 +71,22 @@ class ImportProvincesAndCitiesCommand extends Command
 
         foreach ($choices as $key) {
             try {
-                // Publish migration tag
                 $this->callSilent('vendor:publish', [
                     '--provider' => 'Vendor\IranProvinceCity\Providers\IranProvinceCityServiceProvider',
                     '--tag' => $map[$key]['tag'],
                     '--force' => true,
                 ]);
 
-                // Manually publish model (single file)
                 if (!is_dir(dirname($map[$key]['target']))) {
                     mkdir(dirname($map[$key]['target']), 0755, true);
                 }
 
-                copy($map[$key]['modelPath'], $map[$key]['target']);
+                if (file_exists($map[$key]['target'])) {
+                    $this->line("⚠ Model file already exists: {$map[$key]['target']}");
+                } else {
+                    copy($map[$key]['modelPath'], $map[$key]['target']);
+                }
+
             } catch (Throwable) {
                 $allSuccess = false;
             }
@@ -93,6 +95,22 @@ class ImportProvincesAndCitiesCommand extends Command
         $this->info($allSuccess ? '✔ Migrations and models published.' : '❌ Some migrations or models failed to publish.');
 
         $this->section('Running migrate...');
+
+        $tablesToCheck = match ($choice) {
+            'province' => ['provinces'],
+            'city' => ['cities'],
+            default => ['provinces', 'cities'],
+        };
+
+        $alreadyExists = collect($tablesToCheck)
+            ->filter(fn($table) => Schema::hasTable($table))
+            ->all();
+
+        if (!empty($alreadyExists)) {
+            $this->warn('⚠ The following tables already exist and migrations will be skipped: ' . implode(', ', $alreadyExists));
+            return $allSuccess;
+        }
+
         $exitCode = Artisan::call('migrate', ['--force' => true]);
         $this->line(Artisan::output());
 
