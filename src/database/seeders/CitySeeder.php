@@ -7,7 +7,7 @@ use App\Models\IranProvinceCity\Province;
 use Illuminate\Database\Seeder;
 use Exception;
 
-class ProvinceCitySeeder extends Seeder
+class CitySeeder extends Seeder
 {
     protected string $dataPath;
 
