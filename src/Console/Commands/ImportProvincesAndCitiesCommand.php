@@ -35,12 +35,6 @@ class ImportProvincesAndCitiesCommand extends Command
 
         $this->newLine();
 
-        if ($migrationSuccess && $seederSuccess) {
-            $this->info('✅ Operation completed successfully.');
-        } else {
-            $this->error('❌ Operation completed with some errors.');
-        }
-
         $this->info('✅ All operations completed successfully. Package by — https://github.com/m6t9n');
 
         return $migrationSuccess && $seederSuccess ? Command::SUCCESS : Command::FAILURE;
