@@ -50,7 +50,8 @@ class IranProvinceCityServiceProvider extends ServiceProvider
     protected function publishModels(string $modelPath): void
     {
         $this->publishes([
-            $modelPath => app_path('Models/IranProvinceCity'),
+            $modelPath => app_path('Models/Province'),
+            $modelPath => app_path('Models/City'),
         ], 'iran-province-city-models');
     }
 }
