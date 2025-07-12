@@ -1,6 +1,6 @@
 <?php
 
-namespace Vendor\IranProvinceCity\Database\Seeders;
+namespace Vendor\IranProvinceCity\Database\seeders;
 
 use Vendor\IranProvinceCity\Models\Province;
 use Illuminate\Database\Seeder;

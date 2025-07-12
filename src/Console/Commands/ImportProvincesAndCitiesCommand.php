@@ -72,11 +72,11 @@ class ImportProvincesAndCitiesCommand extends Command
 
         try {
             if (in_array($choice, ['province', 'province & city'])) {
-                $this->runSeeder('Vendor\\IranProvinceCity\\Database\\Seeders\\ProvinceSeeder');
+                $this->runSeeder('Vendor\\IranProvinceCity\\Database\\seeders\\ProvinceSeeder');
             }
 
             if (in_array($choice, ['city', 'province & city'])) {
-                $this->runSeeder('Vendor\\IranProvinceCity\\Database\\Seeders\\CitySeeder');
+                $this->runSeeder('Vendor\\IranProvinceCity\\Database\\seeders\\CitySeeder');
             }
 
             return true;
