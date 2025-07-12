@@ -41,7 +41,7 @@ class ImportProvincesAndCitiesCommand extends Command
             $this->error('❌ Operation completed with some errors.');
         }
 
-        $this->line("You can now close this terminal.");
+        $this->info('✅ All operations completed successfully. Package by — https://github.com/m6t9n');
 
         return $migrationSuccess && $seederSuccess ? Command::SUCCESS : Command::FAILURE;
     }
