@@ -16,7 +16,7 @@ class ImportProvincesAndCitiesCommand extends Command
     {
         $migrationChoice = $this->choice(
             'کدام مایگریشن را می‌خواهید منتشر و اجرا کنید؟',
-            ['province', 'city', 'province & city'],
+            ['province & city', 'province', 'city'],
             default: 'province & city'
         );
 
@@ -27,7 +27,7 @@ class ImportProvincesAndCitiesCommand extends Command
         if ($this->confirm('آیا مایل به اجرای سیدر هستید؟', true)) {
             $seederChoice = $this->choice(
                 'کدام سیدر را می‌خواهید اجرا کنید؟',
-                ['province', 'city', 'province & city'],
+                ['province & city', 'province', 'city'],
                 default: 'province & city'
             );
 

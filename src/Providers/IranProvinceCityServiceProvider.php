@@ -20,7 +20,7 @@ class IranProvinceCityServiceProvider extends ServiceProvider
         $modelPath = dirname(__DIR__, 2) . '/src/Models';
 
         $this->publishMigrations("{$basePath}/migrations");
-        $this->publishSeeders("{$basePath}/Seeders");
+        $this->publishSeeders("{$basePath}/seeders");
         $this->publishModels($modelPath);
 
         $this->loadMigrationsFrom("{$basePath}/migrations");

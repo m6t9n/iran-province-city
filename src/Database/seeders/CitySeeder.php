@@ -2,8 +2,8 @@
 
 namespace Vendor\IranProvinceCity\Database\Seeders;
 
-use App\Models\IranProvinceCity\City;
-use App\Models\IranProvinceCity\Province;
+use Vendor\IranProvinceCity\app\Models\City;
+use Vendor\IranProvinceCity\app\Models\Province;
 use Illuminate\Database\Seeder;
 use Exception;
 
@@ -13,7 +13,7 @@ class CitySeeder extends Seeder
 
     public function __construct()
     {
-        $this->dataPath = dirname(__DIR__, 2) . '/data';
+        $this->dataPath = dirname(__DIR__, 2) . '/Data';
     }
 
     /**
@@ -23,7 +23,7 @@ class CitySeeder extends Seeder
      */
     public function run(): void
     {
-        $cities = require $this->dataPath . '/cities.php';
+        $cities = require $this->dataPath . '/Cities.php';
 
         foreach ($cities as $city) {
             try {

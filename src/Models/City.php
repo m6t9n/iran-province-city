@@ -4,6 +4,7 @@ namespace App\Models\IranProvinceCity;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Vendor\IranProvinceCity\app\Models\Province;
 
 /**
  * Class City
