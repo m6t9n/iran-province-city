@@ -62,12 +62,12 @@ class ImportProvincesAndCitiesCommand extends Command
         $map = [
             'province' => [
                 'tag' => 'iran-province-city-migrations-province',
-                'modelPath' => dirname(__DIR__, 3) . '/Models/Province/Province.php',
+                'modelPath' => dirname(__DIR__, 3) . '/src/Models/Province.php',
                 'target' => app_path('Models/Province.php'),
             ],
             'city' => [
                 'tag' => 'iran-province-city-migrations-city',
-                'modelPath' => dirname(__DIR__, 3) . '/Models/City/City.php',
+                'modelPath' => dirname(__DIR__, 3) . '/src/Models/City.php',
                 'target' => app_path('Models/City.php'),
             ],
         ];
