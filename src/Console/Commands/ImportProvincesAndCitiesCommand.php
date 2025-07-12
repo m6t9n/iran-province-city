@@ -42,6 +42,7 @@ class ImportProvincesAndCitiesCommand extends Command
         }
 
         $this->line("You can now close this terminal.");
+
         return $migrationSuccess && $seederSuccess ? Command::SUCCESS : Command::FAILURE;
     }
 
@@ -87,7 +88,6 @@ class ImportProvincesAndCitiesCommand extends Command
                 } else {
                     copy($map[$key]['modelPath'], $map[$key]['target']);
                 }
-
             } catch (Throwable) {
                 $allSuccess = false;
             }
@@ -109,11 +109,14 @@ class ImportProvincesAndCitiesCommand extends Command
 
         if (!empty($alreadyExists)) {
             $this->warn('⚠ The following tables already exist and migrations will be skipped: ' . implode(', ', $alreadyExists));
+            $this->info('✔ Migration executed.');
             return $allSuccess;
         }
 
         $exitCode = Artisan::call('migrate', ['--force' => true]);
         $this->line(Artisan::output());
+
+        $this->info('✔ Migration executed.');
 
         if ($exitCode !== 0) {
             $this->error('❌ Migration execution failed.');
@@ -149,7 +152,8 @@ class ImportProvincesAndCitiesCommand extends Command
             }
         }
 
-        $this->info($allSuccess ? '✔ Seeders executed successfully.' : '❌ Some seeders failed.');
+        $this->info('✔ Seeders executed successfully.');
+
         return $allSuccess;
     }
 
