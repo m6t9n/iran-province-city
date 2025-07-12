@@ -33,7 +33,7 @@ This Laravel package gives you a robust structure for working with **provinces a
 ## 🚀 Installation
 
 ```bash
-composer require vendor/iran-province-city
+composer require m6t9n/iran-province-city
 ```
 
 ---
