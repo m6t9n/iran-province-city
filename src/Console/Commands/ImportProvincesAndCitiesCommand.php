@@ -24,9 +24,21 @@ class ImportProvincesAndCitiesCommand extends Command
 
         $seederSuccess = true;
         if ($this->confirm('Do you want to run seeders?', true)) {
-            $seederChoice = $migrationChoice;
+            $seederOptions = match ($migrationChoice) {
+                'province' => ['province'],
+                'city' => ['city'],
+                default => ['province & city', 'province', 'city'],
+            };
 
-            $seederSuccess = $this->handleSeeders($seederChoice, $migrationChoice);
+            $defaultSeeder = $migrationChoice === 'province & city' ? 'province & city' : $migrationChoice;
+
+            $seederChoice = $this->choice(
+                'Which seeder do you want to run?',
+                $seederOptions,
+                default: $defaultSeeder
+            );
+
+            $seederSuccess = $this->handleSeeders($seederChoice);
         }
 
         $this->newLine();
@@ -45,6 +57,7 @@ class ImportProvincesAndCitiesCommand extends Command
         $this->section('Publishing migration files and models...');
 
         $allSuccess = true;
+        $errors = [];
 
         $map = [
             'province' => [
@@ -82,12 +95,20 @@ class ImportProvincesAndCitiesCommand extends Command
                 } else {
                     copy($map[$key]['modelPath'], $map[$key]['target']);
                 }
-            } catch (Throwable) {
+            } catch (Throwable $e) {
                 $allSuccess = false;
+                $errors[] = $e->getMessage();
             }
         }
 
-        $this->info($allSuccess ? '✔ Migrations and models published.' : '❌ Some migrations or models failed to publish.');
+        if ($allSuccess) {
+            $this->info('✔ Migrations and models published.');
+        } else {
+            $this->error('❌ Some migrations or models failed to publish.');
+            foreach ($errors as $error) {
+                $this->error("  - $error");
+            }
+        }
 
         $this->section('Running migrate...');
 
@@ -108,7 +129,8 @@ class ImportProvincesAndCitiesCommand extends Command
         }
 
         $exitCode = Artisan::call('migrate', ['--force' => true]);
-        $this->line(Artisan::output());
+        $output = Artisan::output();
+        $this->line($output);
 
         if ($exitCode !== 0) {
             $this->error('❌ Migration execution failed.');
@@ -119,12 +141,8 @@ class ImportProvincesAndCitiesCommand extends Command
         return $allSuccess;
     }
 
-    protected function handleSeeders(string $choice, string $migrationChoice): bool
+    protected function handleSeeders(string $choice): bool
     {
-        if ($choice !== $migrationChoice) {
-            $choice = $migrationChoice;
-        }
-
         $this->section('Running ' . ($choice === 'province & city' ? 'seeders' : 'seeder') . '...');
 
         $seeders = match ($choice) {
