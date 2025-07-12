@@ -24,11 +24,7 @@ class ImportProvincesAndCitiesCommand extends Command
 
         $seederSuccess = true;
         if ($this->confirm('Do you want to run seeders?', true)) {
-            $seederChoice = $this->choice(
-                'Which seeder do you want to run?',
-                ['province & city', 'province', 'city'],
-                default: $migrationChoice
-            );
+            $seederChoice = $migrationChoice;
 
             $seederSuccess = $this->handleSeeders($seederChoice, $migrationChoice);
         }
