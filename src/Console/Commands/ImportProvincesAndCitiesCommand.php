@@ -109,11 +109,11 @@ class ImportProvincesAndCitiesCommand extends Command
         $this->section('Running seeders...');
 
         $seeders = match ($choice) {
-            'province' => ['Vendor\\IranProvinceCity\\Database\\Seeders\\ProvinceSeeder'],
-            'city' => ['Vendor\\IranProvinceCity\\Database\\Seeders\\CitySeeder'],
+            'province' => ['Vendor\\IranProvinceCity\\Database\\seeders\\ProvinceSeeder'],
+            'city' => ['Vendor\\IranProvinceCity\\Database\\seeders\\CitySeeder'],
             default => [
-                'Vendor\\IranProvinceCity\\Database\\Seeders\\ProvinceSeeder',
-                'Vendor\\IranProvinceCity\\Database\\Seeders\\CitySeeder',
+                'Vendor\\IranProvinceCity\\Database\\seeders\\ProvinceSeeder',
+                'Vendor\\IranProvinceCity\\Database\\seeders\\CitySeeder',
             ],
         };
 
