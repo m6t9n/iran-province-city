@@ -1,6 +1,6 @@
 <?php
 
-namespace Models\IranProvinceCity;
+namespace Models\City;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
