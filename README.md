@@ -51,20 +51,6 @@ php artisan iran-province-city:interactive
 
 ---
 
-## 📂 Folder Structure
-
-```
-database/
-  └── migrations/
-  └── seeders/
-app/
-  └── Models/
-      ├── Province.php
-      └── City.php
-```
-
----
-
 ## 🧪 Example Output
 
 ```bash
