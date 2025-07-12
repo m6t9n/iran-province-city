@@ -27,15 +27,19 @@ class ImportProvincesAndCitiesCommand extends Command
             $seederChoice = $this->choice(
                 'Which seeder do you want to run?',
                 ['province & city', 'province', 'city'],
-                default: 'province & city'
+                default: $migrationChoice
             );
 
-            $seederSuccess = $this->handleSeeders($seederChoice);
+            $seederSuccess = $this->handleSeeders($seederChoice, $migrationChoice);
         }
 
         $this->newLine();
 
-        $this->info('✅ All operations completed successfully. Package by — https://github.com/m6t9n');
+        if ($migrationSuccess && $seederSuccess) {
+            $this->info('✅ All operations completed successfully. Package by — https://github.com/m6t9n');
+        } else {
+            $this->error('❌ Operation completed with some errors.');
+        }
 
         return $migrationSuccess && $seederSuccess ? Command::SUCCESS : Command::FAILURE;
     }
@@ -110,19 +114,22 @@ class ImportProvincesAndCitiesCommand extends Command
         $exitCode = Artisan::call('migrate', ['--force' => true]);
         $this->line(Artisan::output());
 
-        $this->info('✔ Migration executed.');
-
         if ($exitCode !== 0) {
             $this->error('❌ Migration execution failed.');
             return false;
         }
 
+        $this->info('✔ Migration executed.');
         return $allSuccess;
     }
 
-    protected function handleSeeders(string $choice): bool
+    protected function handleSeeders(string $choice, string $migrationChoice): bool
     {
-        $this->section('Running seeders...');
+        if ($choice !== $migrationChoice) {
+            $choice = $migrationChoice;
+        }
+
+        $this->section('Running ' . ($choice === 'province & city' ? 'seeders' : 'seeder') . '...');
 
         $seeders = match ($choice) {
             'province' => ['Vendor\\IranProvinceCity\\Database\\seeders\\ProvinceSeeder'],
@@ -146,7 +153,11 @@ class ImportProvincesAndCitiesCommand extends Command
             }
         }
 
-        $this->info('✔ Seeders executed successfully.');
+        if ($allSuccess) {
+            $this->info("✔ Seeder" . ($choice === 'province & city' ? 's' : '') . " executed successfully.");
+        } else {
+            $this->error("❌ Some seeders failed.");
+        }
 
         return $allSuccess;
     }
