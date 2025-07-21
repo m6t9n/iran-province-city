@@ -2,7 +2,7 @@
 
 namespace Vendor\IranProvinceCity\Database\seeders;
 
-use Vendor\IranProvinceCity\Models\Province;
+use App\Models\Province;
 use Illuminate\Database\Seeder;
 use Exception;
 

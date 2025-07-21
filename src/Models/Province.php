@@ -1,6 +1,6 @@
 <?php
 
-namespace Vendor\IranProvinceCity\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
